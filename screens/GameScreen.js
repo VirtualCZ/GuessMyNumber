@@ -75,12 +75,13 @@ const GameScreen = (props) => {
                     renderItem={itemData => {
                         return(
                             <View style={styles.logitem}>
-                            <Text style={{color: "white", fontWeight: "bold"}}>{itemData.item.guess}</Text>
-                            <Text style={{color: "white", fontWeight: "bold"}}>{itemData.item.key}</Text>
+                            <Text style={{color: "white", fontWeight: "bold"}}>Computer guess:{itemData.item.guess}</Text>
+                            <Text style={{color: "white", fontWeight: "bold"}}>Attempt no. {itemData.item.key}</Text>
                             </View>
                         )
                     }}
                     style={styles.guess}
+                    inverted={true}
                 />
             </View>
 
