@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native"
 import Colors from "../constants/colors"
 import PrimaryButton from "../components/PrimaryButton"
 
@@ -25,6 +25,9 @@ const GameOverScreen = (props) => {
             </View>
     )
 }
+
+const deviceWidth = Dimensions.width
+
 export default GameOverScreen
 
 const styles = StyleSheet.create({
@@ -43,17 +46,17 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily:"open-sans-bold",
-        fontSize: 50,
+        fontSize: deviceWidth<400 ? 38 : 50,
         color: "black"
     },
     text: {
         fontFamily:"open-sans",
-        fontSize: 30,
+        fontSize: deviceWidth<400 ? 20 : 30,
         color: "black"
     },
     text1: {
         fontFamily:"open-sans-bold",
-        fontSize: 30,
+        fontSize: deviceWidth<400 ? 20 : 30,
         color: Colors.secondary
     },
     imageContainer: {
