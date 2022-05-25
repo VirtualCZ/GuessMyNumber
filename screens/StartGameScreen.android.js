@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, Text } from "react-native";
+import { View, StyleSheet, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
 import IonIcons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
 
@@ -28,7 +28,33 @@ const StartGameScreen = ({onPickNumber}) => {
       }
   }
 
+  // let platform
+
+  // if (Platform.OS==="android")
+  // {
+  //   platform=(<PrimaryButton bgcolor="#a4c639">Android</PrimaryButton>)
+  // }
+  // else if (Platform.OS==="ios")
+  // {
+  //   platform=(<PrimaryButton bgcolor="#acacac">iOS</PrimaryButton>)
+  // }
+  // else{
+  //   platform=(<PrimaryButton bgcolor="#f86060">Other</PrimaryButton>)
+  // }
+
+  // Nebo jednodušeji:
+
+  let platform = Platform.select({
+  ios:(
+    <PrimaryButton bgcolor="#acacac">iOS</PrimaryButton>
+  ),
+  android:(
+    <PrimaryButton bgcolor="#a4c639">Android</PrimaryButton>
+  )})
+
   return (
+    <ScrollView contentContainerStyle={styles.scrolltainer}>
+    <KeyboardAvoidingView keyboardVerticalOffset={-80} style={styles.keyboardtainer} behavior="position">
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={styles.title}>Guess the Number!</Text>
@@ -61,18 +87,34 @@ const StartGameScreen = ({onPickNumber}) => {
             </PrimaryButton>
           </View>
         </View>
+        <View style={styles.platformcont}>
+          <Text>Platform: </Text>
+          {platform}
+        </View>
+        <Text style={{textAlign:"center", fontSize: 13, marginTop: 5}}>Using StartGameScreen.android.js</Text>
       </View>
     </View>
+    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  scrolltainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
+  keyboardtainer: {
+    height: "100%",
+    width: "100%",
+    flex:1,
+    justifyContent: "center"
+  },
   container: {
     height: "100%",
     width: "100%",
     flex: 1,
-    alignContent: "center",
     justifyContent: "center",
     padding: 10,
     paddingTop: 30,
@@ -106,5 +148,12 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flex: 1,
+  },
+  platformcont: {
+    flex: 1,
+    flexDirection:"row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 5
   },
 });

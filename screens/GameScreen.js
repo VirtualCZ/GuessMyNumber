@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList, Alert } from "react-native"
+import { Text, View, StyleSheet, FlatList, Alert, useWindowDimensions } from "react-native"
 import { useState, useEffect } from "react"
 
 import Colors from "../constants/colors"
@@ -8,6 +8,8 @@ let min = 1
 let max = 100
 
 const GameScreen = (props) => {
+    const {width, height} = useWindowDimensions()
+
     const genRanNum = (min, max) => {
         const rndNum = Math.floor(Math.random() * (max-min) + min)
         return rndNum
@@ -51,23 +53,46 @@ const GameScreen = (props) => {
         }
     }, [guess])
     
+    const marginTop = width > 500 ? 30 : 80
+
+    let content =( 
+    <View style={styles.guessNumberContainer}>
+        <Text style={styles.title}>Opponents guess</Text>
+        <Text style={styles.number}>{guess}</Text>
+        <View style={{flexDirection: "row", height: 80}}>
+            <View style={{flex:1}}>
+                <IonIconButton onPress={()=>genNextNum("higher")} size="30" bgcolor={Colors.secondary} color="white">add</IonIconButton>
+            </View>
+
+            <View style={{flex:1}}>
+                <IonIconButton onPress={()=>genNextNum("lower")} size="30" bgcolor={Colors.secondary} color="white">remove</IonIconButton>
+            </View>
+        </View>
+    </View>
+    )
+
+    if (width > 500){
+        content = (
+            <View style={[styles.guessNumberContainer, {flexDirection:"row", alignItems:"center"}]}>
+            <Text style={[styles.title, {flex:1, textAlign: "center"}]}>Opponents guess</Text>
+            <Text style={[styles.number, {flex:1}]}>{guess}</Text>
+            <View style={{flexDirection: "column", height: 120, flex:1}}>
+                <View style={{flex:1}}>
+                    <IonIconButton onPress={()=>genNextNum("higher")} size="30" bgcolor={Colors.secondary} color="white">add</IonIconButton>
+                </View>
+    
+                <View style={{flex:1}}>
+                    <IonIconButton onPress={()=>genNextNum("lower")} size="30" bgcolor={Colors.secondary} color="white">remove</IonIconButton>
+                </View>
+            </View>
+        </View>
+        )
+    }
 
     return(
-        <View style={styles.container}>
-            <View style={styles.guessNumberContainer}>
-                <Text style={styles.title}>Opponents guess</Text>
-                <Text style={styles.number}>{guess}</Text>
-                <View style={{flexDirection: "row", height: 80}}>
-                    <View style={{flex:1}}>
-                        <IonIconButton onPress={()=>genNextNum("higher")} size="30" bgcolor={Colors.secondary} color="white">add</IonIconButton>
-                    </View>
-
-                    <View style={{flex:1}}>
-                        <IonIconButton onPress={()=>genNextNum("lower")} size="30" bgcolor={Colors.secondary} color="white">remove</IonIconButton>
-                    </View>
-                </View>
-
-            </View>
+        <View style={[styles.container, {paddingVertical: marginTop}]}>
+            
+            {content}
 
             <View style={styles.guessLogContainer}>
                 <FlatList
@@ -114,7 +139,7 @@ const styles = StyleSheet.create({
     number:{
         fontSize:90,
         fontWeight: "bold",
-        alignSelf: "center",
+        textAlign: "center",
         color: Colors.secondary
     },
     guessLogContainer: {

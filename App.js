@@ -55,6 +55,8 @@ if (gameEnd){
 }
 
   return (
+    <>
+    <StatusBar style="auto" />
     <LinearGradient style={styles.container} colors={["#0D324D", "#7F5A83"]}>
       <ImageBackground
         source={require("./assets/background.png")}
@@ -66,10 +68,10 @@ if (gameEnd){
           style={styles.container}
         >
           {screen}
-          <StatusBar style="auto" />
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
+    </>
   );
 }
 
