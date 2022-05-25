@@ -88,6 +88,7 @@ const GameScreen = (props) => {
         </View>
     )
 }
+
 export default GameScreen
 
 const styles = StyleSheet.create({
